@@ -9,3 +9,8 @@ edition = "2021"
 bevy = "0.12.1"
 bevy_framepace = "0.14.1"
 rand = "0.8.5"
+
+[profile.release]
+lto = true
+opt-level = 'z'
+panic = 'abort'

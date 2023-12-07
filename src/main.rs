@@ -1,3 +1,4 @@
+#![windows_subsystem = "windows"]
 use bevy::{prelude::*, window::WindowResolution};
 use bevy_framepace::FramepacePlugin;
 mod bottom_bar;
@@ -25,6 +26,7 @@ impl Map {
 fn main() {
     App::new()
         .insert_resource(Map::new())
+        .insert_resource(ClearColor(Color::WHITE))
         .add_plugins(DefaultPlugins.set(WindowPlugin {
             primary_window: Some(Window {
                 title: "吃掉米雪儿".to_string(),
