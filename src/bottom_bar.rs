@@ -1,9 +1,6 @@
 use crate::env::*;
 use bevy::prelude::*;
 
-const HEIGHTLIGHT_COLOR: Color = Color::rgb(0.8, 0.8, 0.8);
-const DEFAULT_COLOR: Color = Color::rgb(0.95, 0.95, 0.95);
-
 pub struct BottomBarPlugin;
 impl Plugin for BottomBarPlugin {
     fn build(&self, app: &mut App) {

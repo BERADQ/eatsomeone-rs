@@ -46,6 +46,9 @@ impl Michele {
         self.beyond = self.now_iy >= DAMIER_HEIGHT;
         self.now_iy >= DAMIER_HEIGHT
     }
+    pub fn is_last(&self) -> bool {
+        self.now_iy >= DAMIER_HEIGHT - 1
+    }
 }
 pub struct MichelePlugin;
 impl Plugin for MichelePlugin {
