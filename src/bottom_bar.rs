@@ -1,4 +1,4 @@
-use crate::env::*;
+use crate::{env::*, assets::font};
 use bevy::prelude::*;
 
 pub struct BottomBarPlugin;
@@ -36,7 +36,7 @@ impl BarKey {
     }
 }
 fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
-    let font: Handle<Font> = asset_server.load("fonts/sarasa-ui-sc-bold.ttf");
+    let font: Handle<Font> = asset_server.add(font::MAIN_FONT.clone());
     let all = BarKey::all();
     let mut i: usize = 0;
     for bk in all {

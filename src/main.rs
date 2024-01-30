@@ -1,10 +1,16 @@
-//#![windows_subsystem = "windows"]
-use bevy::{prelude::*, window::WindowResolution};
+#![windows_subsystem = "windows"]
+use bevy::{
+    prelude::*,
+    render::texture::{CompressedImageFormats, ImageSampler, ImageType},
+    window::WindowResolution,
+};
 use bevy_framepace::FramepacePlugin;
+mod assets;
 mod bottom_bar;
 mod env;
 mod michele;
 mod topbar;
+use assets::pic;
 use bottom_bar::BottomBarPlugin;
 use env::*;
 use michele::{Michele, MichelePlugin};
@@ -84,16 +90,15 @@ fn event_hit(
     mut map: ResMut<Map>,
     mut game_status: ResMut<GameStatus>,
 ) {
-    let after_img = asset_server.load("pic/ClickAfter.png");
+    let after_img = asset_server.add(pic::CLICK_BEFORE.clone());
     let mut rng = rand::thread_rng();
     if key_input.just_pressed(KEY_MAP[*map.0.last().unwrap() as usize]) {
         let ix: u32 = rng.gen_range(0..=3);
         commands.spawn(Michele::new(&asset_server, ix, -1));
         let mut new_map = vec![ix];
-        let old_map = Vec::from(&map.0[0..(DAMIER_HEIGHT as usize)]);
-        new_map.extend(old_map);
-        //map.0 = unsafe { *(new_map[0..].as_ptr() as *const [u32; DAMIER_HEIGHT as usize + 1]) };
-        map.0 = new_map[0..].try_into().unwrap();
+        new_map.extend(&map.0[0..(DAMIER_HEIGHT as usize)]);
+        map.0 = unsafe { *(new_map[0..].as_ptr() as *const [u32; DAMIER_HEIGHT as usize + 1]) };
+        //map.0 = new_map[0..].try_into().unwrap();
         game_status.point += 1;
         for (mut m, mut s) in &mut micheles {
             if m.is_last() {

@@ -1,5 +1,9 @@
 use crate::env::*;
+use bevy::asset::LoadedAsset;
+use bevy::prelude::Component;
 use bevy::prelude::*;
+use bevy::render::texture::{CompressedImageFormats, ImageSampler};
+use crate::assets::pic;
 
 #[derive(Component)]
 pub struct Michele {
@@ -12,7 +16,7 @@ impl Michele {
     pub fn new(asset_server: &AssetServer, ix: u32, iy: i32) -> (SpriteBundle, Self) {
         (
             SpriteBundle {
-                texture: asset_server.load("pic/ClickBefore.png"),
+                texture: asset_server.add(pic::CLICK_AFTER.clone()),
                 transform: Transform {
                     translation: Vec3::new(
                         ix as f32 * MICHELE_SIZE.0,

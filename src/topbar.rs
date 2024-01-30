@@ -1,3 +1,5 @@
+use crate::assets;
+use crate::assets::font;
 use crate::env::*;
 use crate::GameStatus;
 use bevy::prelude::*;
@@ -31,7 +33,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
             TopBar,
         ))
         .with_children(|builder| {
-            let font = asset_server.load("fonts/sarasa-ui-sc-bold.ttf");
+            let font = asset_server.add(font::MAIN_FONT.clone());
             builder.spawn((
                 Text2dBundle {
                     text: Text::from_section(
